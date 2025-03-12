@@ -69,5 +69,10 @@ document.getElementById("remove-pendulum").addEventListener("click", () => {
 document.getElementById("randomize").addEventListener("click", () => {
   randomizePendulums(pendulums);
   adjustPendulumsWidth(pendulums);
-  console.log(pendulums);
+});
+
+document.getElementById("randomize-color").addEventListener("click", () => {
+  pendulums.forEach((pendulum) => {
+    pendulum.setColor(randomColor());
+  });
 });

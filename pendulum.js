@@ -10,13 +10,12 @@ export default class Pendulum {
     this.length = length;
     this.width = width;
     this.angle = angle;
-    this.color = color;
-    this.fillColor = modifyColor(color, 40, 20);
     this.prev = prev;
     this.next = undefined;
     this.drawPath = true;
     this.path = [];
     this.pathLength = 2 * (canvas.width + canvas.height);
+    this.setColor(color);
   }
 
   update(dt) {
@@ -64,6 +63,11 @@ export default class Pendulum {
     }
   }
 
+  setColor(color) {
+    this.color = color;
+    this.fillColor = modifyColor(color, 40, 20);
+  }
+
   get dx() {
     return this.x + this.length * Math.cos(this.angle);
   }
@@ -75,7 +79,7 @@ export default class Pendulum {
 
 export function createNewPendulum(prev) {
   const min = Math.min(canvas.width, canvas.height);
-  const speed = randomNo(-10, 10, 0) / Math.PI;
+  const speed = randomNo(-8, 8, 0) / Math.PI;
   const length = randomNo(min / 16, min / 8);
   const angle = randomNo(-Math.PI, Math.PI);
   const pendulum = new Pendulum(speed, length, 4, angle, randomColor(), prev);
@@ -86,17 +90,20 @@ export function createNewPendulum(prev) {
 export function randomizePendulums(pendulums) {
   for (let i = 0; i < pendulums.length; i++) {
     const pendulum = createNewPendulum(pendulums[i - 1]);
-    pendulum.width = pendulums.length - 1 + 4;
     pendulums[i] = pendulum;
     if (pendulums[i - 1]) pendulums[i - 1].next = pendulum;
     if (i === pendulums.length - 1) pendulum.drawPath = true;
   }
+  adjustPendulumsWidth(pendulums);
 }
 
 export function adjustPendulumsWidth(pendulums) {
-  pendulums.forEach((pendulum) => {
-    pendulum.width = pendulum.prev
-      ? pendulum.prev.width - 1
-      : pendulums.length + 4;
-  });
+  const unit = Math.min(canvas.height, canvas.width) / 240;
+  let i = 0;
+  let pendulum = pendulums.at(-1);
+  while (pendulum !== undefined) {
+    pendulum.width = unit + (i * unit) / 4;
+    pendulum = pendulum.prev;
+    i++;
+  }
 }
