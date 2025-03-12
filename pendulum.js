@@ -74,8 +74,9 @@ export default class Pendulum {
 }
 
 export function createNewPendulum(prev) {
+  const min = Math.min(canvas.width, canvas.height);
   const speed = randomNo(-10, 10, 0) / Math.PI;
-  const length = randomNo(32, 124);
+  const length = randomNo(min / 16, min / 8);
   const angle = randomNo(-Math.PI, Math.PI);
   const pendulum = new Pendulum(speed, length, 4, angle, randomColor(), prev);
 
