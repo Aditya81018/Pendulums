@@ -6,7 +6,7 @@
 
 body {
   display: flex;
-  background-color: hsl(0 0 8);
+  background-color: hsl(0 0 4);
 }
 
 #controls {

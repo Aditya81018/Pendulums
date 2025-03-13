@@ -1,6 +1,6 @@
 import { canvas, ctx } from "./const.js";
 import { modifyColor } from "./helpers/color.js";
-import { randomColor, randomNo } from "./helpers/random.js";
+import { pickOne, randomColor, randomNo } from "./helpers/random.js";
 
 export default class Pendulum {
   constructor(speed, length, width, angle, color, prev) {
@@ -79,11 +79,11 @@ export default class Pendulum {
 
 export function createNewPendulum(prev) {
   const min = Math.min(canvas.width, canvas.height);
-  const speed = randomNo(-8, 8, 0) / Math.PI;
+  const speed =
+    pickOne(randomNo(-16, -8, 0), randomNo(8, 16, 0)) / (2 * Math.PI);
   const length = randomNo(min / 16, min / 8);
   const angle = randomNo(-Math.PI, Math.PI);
   const pendulum = new Pendulum(speed, length, 4, angle, randomColor(), prev);
-
   return pendulum;
 }
 
