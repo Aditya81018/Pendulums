@@ -5,14 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pendulums</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://kit.fontawesome.com/e6192854e1.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <canvas id="root-canvas"></canvas>
     <div id="controls">
-      <button id="add-pendulum">Add +</button>
-      <button id="remove-pendulum">Remove -</button>
-      <button id="randomize">Randomize</button>
-      <button id="randomize-color">Randomize Color</button>
+      <div class="label">
+        Draw path for:
+        <button id="draw-path-for">none</button>
+      </div>
+      <div>
+        <button id="pause"><i class="fa-solid fa-pause"></i></button>
+        <button id="add-pendulum"><i class="fa-solid fa-plus"></i></button>
+        <button id="remove-pendulum"><i class="fa-solid fa-minus"></i></button>
+        <button id="randomize"><i class="fa-solid fa-shuffle"></i></button>
+        <button id="randomize-color"><i class="fa-solid fa-palette"></i></button>
+        <button id="speed-multiplier"><i class="fa-solid fa-xmark"></i>1</button>
+        <button id="hide-pendulums"><i class="fa-solid fa-eye-slash"></i></button>
+        <button id="clear-path"><i class="fa-solid fa-ban"></i></button>
+      </div>
     </div>
     <script type="module" src="main.js"></script>
   </body>
