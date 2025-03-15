@@ -16,7 +16,7 @@ export default class Pendulum {
     this.drawPendulum = true;
     this.drawPath = false;
     this.path = [];
-    this.pathLength = 2 * (canvas.width + canvas.height);
+    this.pathLength = 3200;
     this.setColor(color);
   }
 

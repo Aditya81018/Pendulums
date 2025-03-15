@@ -8,7 +8,10 @@ import Pendulum, {
   setVisibility,
 } from "./pendulum.js";
 import { canvas, ctx } from "./const.js";
-import { colorButtons } from "./helpers/color.js";
+import { colorButtons, colorSpans } from "./helpers/color.js";
+
+const countElement = document.querySelector("#header > #count > span");
+const fpsElement = document.querySelector("#header > #fps > span");
 
 let count = 0;
 
@@ -33,6 +36,7 @@ window.addEventListener("resize", () => {
 const pendulums = [];
 
 colorButtons();
+colorSpans();
 
 function animate(timestamp) {
   const dt = timestamp - lastTime;
@@ -54,6 +58,7 @@ function animate(timestamp) {
     ctx.fill();
     ctx.closePath();
   }
+  fpsElement.innerText = (1000 / dt).toFixed(0);
 
   animationFrame = window.requestAnimationFrame(animate);
 }
@@ -61,8 +66,10 @@ animate();
 
 function reset() {
   window.cancelAnimationFrame(animationFrame);
-  pendulums[0].x = canvas.width / 2;
-  pendulums[0].y = canvas.height / 2;
+  if (count > 0) {
+    pendulums[0].x = canvas.width / 2;
+    pendulums[0].y = canvas.height / 2;
+  }
   animate();
 }
 
@@ -76,6 +83,7 @@ document.getElementById("add-pendulum").addEventListener("click", () => {
   if (state === "paused") {
     pendulum.speedMultiplier = 0;
   } else pendulum.speedMultiplier = speedMultiplier;
+  countElement.innerText = count;
 });
 
 document.getElementById("remove-pendulum").addEventListener("click", () => {
@@ -84,6 +92,7 @@ document.getElementById("remove-pendulum").addEventListener("click", () => {
   pendulums.at(-1).next = undefined;
   adjustPendulumsWidth(pendulums);
   setDrawPathFor(pendulums, drawPathFor);
+  countElement.innerText = count;
 });
 
 document.getElementById("randomize").addEventListener("click", () => {

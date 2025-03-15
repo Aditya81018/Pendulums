@@ -13,3 +13,10 @@ export function colorButtons() {
     button.style.color = color;
   });
 }
+
+export function colorSpans() {
+  document.querySelectorAll("#header > div > span").forEach((button) => {
+    const color = randomColor();
+    button.style.color = color;
+  });
+}
