@@ -5,6 +5,7 @@ import Pendulum, {
   randomizePendulums,
   setDrawPathFor,
   setSpeedMultiplier,
+  setStrokeVisibility,
   setVisibility,
 } from "./pendulum.js";
 import { canvas, ctx } from "./const.js";
@@ -22,6 +23,7 @@ let drawPathFor = "none";
 let speedMultiplier = 1;
 let state = "playing";
 let visibility = "show";
+let strokeVisibility = "show";
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -80,6 +82,7 @@ document.getElementById("add-pendulum").addEventListener("click", () => {
   adjustPendulumsWidth(pendulums);
   setDrawPathFor(pendulums, drawPathFor);
   setVisibility(pendulums, visibility);
+  setStrokeVisibility(pendulums, strokeVisibility);
   if (state === "paused") {
     pendulum.speedMultiplier = 0;
   } else pendulum.speedMultiplier = speedMultiplier;
@@ -100,6 +103,7 @@ document.getElementById("randomize").addEventListener("click", () => {
   adjustPendulumsWidth(pendulums);
   setDrawPathFor(pendulums, drawPathFor);
   setVisibility(pendulums, visibility);
+  setStrokeVisibility(pendulums, strokeVisibility);
   if (state === "paused") {
     setSpeedMultiplier(pendulums, 0);
   } else setSpeedMultiplier(pendulums, speedMultiplier);
@@ -155,15 +159,30 @@ document.getElementById("hide-pendulums").addEventListener("click", () => {
   if (visibility === "show") {
     document.getElementById(
       "hide-pendulums"
-    ).innerHTML = `<i class="fa-solid fa-eye"></i>`;
+    ).innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
     visibility = "hide";
   } else if (visibility === "hide") {
     document.getElementById(
       "hide-pendulums"
-    ).innerHTML = `<i class="fa-solid fa-eye-slash"></i>`;
+    ).innerHTML = `<i class="fa-solid fa-eye"></i>`;
     visibility = "show";
   }
   setVisibility(pendulums, visibility);
+});
+
+document.getElementById("hide-stroke").addEventListener("click", () => {
+  if (strokeVisibility === "show") {
+    document.getElementById(
+      "hide-stroke"
+    ).innerHTML = `<i class="fa-solid fa-paintbrush"></i>`;
+    strokeVisibility = "hide";
+  } else if (strokeVisibility === "hide") {
+    document.getElementById(
+      "hide-stroke"
+    ).innerHTML = `<i class="fa-solid fa-pen"></i>`;
+    strokeVisibility = "show";
+  }
+  setStrokeVisibility(pendulums, strokeVisibility);
 });
 
 document.getElementById("clear-path").addEventListener("click", () => {

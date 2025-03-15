@@ -14,6 +14,7 @@ export default class Pendulum {
     this.prev = prev;
     this.next = undefined;
     this.drawPendulum = true;
+    this.drawStroke = true;
     this.drawPath = false;
     this.path = [];
     this.pathLength = 3200;
@@ -53,8 +54,13 @@ export default class Pendulum {
       this.path.forEach((point) => {
         ctx.lineTo(...point);
       });
-      ctx.fill();
-      ctx.stroke();
+      if (this.drawStroke) {
+        ctx.fill();
+        ctx.stroke();
+      } else {
+        ctx.stroke();
+        ctx.fill();
+      }
       ctx.closePath();
     }
   }
@@ -129,5 +135,11 @@ export function setSpeedMultiplier(pendulums, speedMultiplier) {
 export function setVisibility(pendulums, visibility) {
   pendulums.forEach(
     (pendulum) => (pendulum.drawPendulum = visibility === "show")
+  );
+}
+
+export function setStrokeVisibility(pendulums, visibility) {
+  pendulums.forEach(
+    (pendulum) => (pendulum.drawStroke = visibility === "show")
   );
 }
